@@ -1,5 +1,4 @@
 # --- Claude Code tmux helpers ---
-# Source this from your .zshrc, or copy the functions into it.
 
 # Name the current tmux window for a task (e.g. ct SUP-1234/fix-login)
 ct() {
@@ -7,7 +6,7 @@ ct() {
   [ -n "$TMUX" ] && tmux rename-window "$name"
 }
 
-# cd into a Claude worktree and auto-name the tmux window from the branch
+# cd into a Claude worktree and auto-name the tmux window
 cw() {
   local dir="${1:?Usage: cw <worktree-path>}"
   cd "$dir" || return 1

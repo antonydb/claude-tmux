@@ -7,6 +7,7 @@ If you run multiple Claude sessions across tmux windows (e.g. one per feature br
 - **Bell notifications** when Claude finishes or needs a permission decision — flagged windows show `!` in the tmux status bar
 - **macOS notifications** with the window/task name so you know _which_ session needs you
 - **Status bar widget** showing a count of windows waiting for attention
+- **Auto-named windows** showing `directory:command` (e.g. `my-app:claude`), with manual override via `ct`
 - **Shell helpers** for naming tmux windows after tasks (`ct SUP-1234/fix-auth`) or auto-naming from worktree branches (`cw .claude/worktrees/abc`)
 
 ## What's included
@@ -63,13 +64,13 @@ Claude needs permission (Notification event)
 
 ### tmux status bar
 
-Windows needing attention are highlighted in yellow with `!`:
+Windows auto-name themselves as `directory:command`. When a window needs attention it's highlighted in yellow with `!`:
 
 ```
- 0:main  1:SUP-1234 !  2:SUP-5678  3:refactor !       1needs-attention 14:32
+ 0:app:claude !  1:api:nvim  2:app:zsh  3:api:claude !       2needs-attention 14:32
 ```
 
-The status bar widget on the right shows how many windows are waiting.
+Manually renaming a window (with `ct` or `<prefix>,`) sticks — auto-rename is disabled for that window. The status bar widget on the right shows how many windows are waiting.
 
 ### Shell helpers
 
@@ -128,7 +129,8 @@ Append to `~/.tmux.conf`:
 set -g monitor-bell on
 set -g bell-action other
 set -g visual-bell off
-set -g automatic-rename off
+set -g automatic-rename on
+set -g automatic-rename-format '#{b:pane_current_path}:#{pane_current_command}'
 set -g allow-rename off
 set -g window-status-bell-style 'fg=yellow,bold'
 set -g window-status-format         '#I:#W#{?window_bell_flag, !,}'

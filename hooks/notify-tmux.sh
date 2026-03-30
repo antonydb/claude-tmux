@@ -1,10 +1,6 @@
 #!/bin/bash
 # Claude Code hook: ring terminal bell and send macOS notification.
 # Shared by Stop and Notification hooks in ~/.claude/settings.json.
-#
-# When Claude finishes responding or needs permission, this script:
-#   1. Rings the terminal bell (tmux picks this up as a window bell flag)
-#   2. Sends a macOS notification with the tmux window name for context
 
 # Read hook input (required by hook contract)
 INPUT=$(cat)
